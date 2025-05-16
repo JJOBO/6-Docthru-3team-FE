@@ -20,6 +20,8 @@ export default function DevNavigation() {
     // 관리자 관련 라우트
     { path: "/admin/management", name: "관리자 챌린지 관리" },
     { path: "/admin/challenges", name: "관리자 챌린지 목록" },
+    // 공통 컴포넌트 관련 라우트
+    { path: "/example", name: "공통컴포넌트 예시" },
   ];
 
   return (
