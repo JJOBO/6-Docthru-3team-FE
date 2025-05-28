@@ -22,7 +22,9 @@ export default function ChallengeCard({
 }) {
   const [status, setStatus] = useState("");
 
-  //챌린지 상태(status) 계산
+  //디버깅
+  console.log("isAdmin", isAdmin);
+
   useEffect(() => {
     const now = new Date();
     const deadlineDate = new Date(deadline);
@@ -35,7 +37,6 @@ export default function ChallengeCard({
     }
   }, [deadline, maxParticipant, participants]);
 
-  //날짜 prettier
   const formatDateToPretty = (dateString) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat("ko-KR", {

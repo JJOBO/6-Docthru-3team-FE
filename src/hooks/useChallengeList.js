@@ -106,7 +106,9 @@ const useChallenges = () => {
     error,
     setPage,
     setKeyword,
-    applyFilters
+    applyFilters,
+    setChallenges,
+    setTotalCount
   };
 };
 

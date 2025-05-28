@@ -1,14 +1,17 @@
 "use client";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import out from "@/assets/icon/ic_out.svg";
 
-export default function DeclineModal({ text = "거절", onClose, onSubmit }) {
-  const textareaRef = useRef(null);
+export default function DeclineModal({ text = "거절", onClose, onConfirm }) {
+  const [reason, setReason] = useState("");
+
+  const handleChange = (e) => {
+    setReason(e.target.value);
+  };
 
   const handleSubmit = () => {
-    onSubmit?.(textareaRef.current?.value);
-    onClose?.();
+    onConfirm?.(reason);
   };
 
   return (
@@ -34,10 +37,11 @@ export default function DeclineModal({ text = "거절", onClose, onSubmit }) {
 
         <textarea
           id="reject-reason"
-          ref={textareaRef}
           rows={5}
           placeholder={`${text}사유를 입력해주세요`}
           className="mb-4 min-h-[219px] w-full resize-none rounded-md border border-gray-300 bg-white px-5 py-4 text-base placeholder:text-gray-500 focus:outline md:mb-6 md:text-base"
+          value={reason}
+          onChange={handleChange}
         />
 
         <button
