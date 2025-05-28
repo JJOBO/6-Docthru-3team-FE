@@ -69,17 +69,10 @@ export default function editChallengePageAdmin() {
       docType: selectedDocType
     };
 
-    //디버깅
-    const user = getUserAction();
-    console.log("user", await user);
-
     try {
       const updatedChallenge = await updateChallenge(postData);
 
       if (!updatedChallenge) throw new Error("챌린지 수정 중 오류 발생");
-
-      //디버깅
-      console.log("updatedChallenge", updatedChallenge);
 
       router.push("/admin/challenges");
     } catch (error) {
@@ -96,6 +89,18 @@ export default function editChallengePageAdmin() {
   } else {
     maxParticipantErrorMessage = null;
   }
+
+  //신청하기 버튼 비활성화
+  const isFormValid =
+    title.trim() !== "" &&
+    originalUrl.trim() !== "" &&
+    selectedCategory !== "카테고리" &&
+    selectedDocType !== "카테고리" &&
+    deadline !== null &&
+    maxParticipant !== null &&
+    maxParticipant !== "" &&
+    description.trim() !== "" &&
+    !maxParticipantErrorMessage;
 
   return (
     <div className="font-pretendard px-[16px] pt-[16px] pb-[87px] text-[18px] text-[var(--color-gray-900)]">
@@ -188,7 +193,7 @@ export default function editChallengePageAdmin() {
       </div>
 
       <div className="h-[48px] w-full">
-        <BtnText theme="solidblack" onClick={handleChallengeEdit}>
+        <BtnText theme="solidblack" disabled={!isFormValid} onClick={handleChallengeEdit}>
           수정하기
         </BtnText>
       </div>

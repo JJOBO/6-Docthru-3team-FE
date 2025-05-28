@@ -9,9 +9,11 @@ import Pagination from "@/components/pagination/Pagination";
 import { useState } from "react";
 import useChallenges from "@/hooks/useChallengeList";
 import { useAuth } from "@/providers/AuthProvider";
+import { useRouter } from "next/navigation";
 
 function Page() {
   const [isModal, setIsModal] = useState(false);
+  const router = useRouter();
 
   //현재 사용자가 일반유저인지, 관리자인지 확인
   const { user } = useAuth();
@@ -25,9 +27,6 @@ function Page() {
   } else {
     console.log("로그인 필요");
   }
-
-  // const isExpert = user?.grade === "EXPERT";
-  // const grade = isAdmin ? "어드민" : isExpert ? "전문가" : "일반";
 
   const {
     challenges,
@@ -46,6 +45,10 @@ function Page() {
 
   const handleClickFilter = () => {
     setIsModal(true);
+  };
+
+  const handleClickCard = (challengeId) => {
+    router.push(`/challenges/${challengeId}`);
   };
 
   const handleApplyFilters = (newFilters) => {
@@ -86,16 +89,17 @@ function Page() {
           <div className="text-red-500">{error}</div>
         ) : challenges.length > 0 ? (
           challenges.map((challenge) => (
-            <ChallengeCard
-              key={challenge.id}
-              title={challenge.title}
-              type={challenge.docType}
-              category={challenge.category}
-              deadline={challenge.deadline}
-              participants={challenge.participants.length}
-              maxParticipant={challenge.maxParticipant}
-              isAdmin={isAdmin}
-            />
+            <div key={challenge.id} onClick={() => handleClickCard(challenge.id)}>
+              <ChallengeCard
+                title={challenge.title}
+                type={challenge.docType}
+                category={challenge.category}
+                deadline={challenge.deadline}
+                participants={challenge.participants.length}
+                maxParticipant={challenge.maxParticipant}
+                isAdmin={isAdmin}
+              />
+            </div>
           ))
         ) : (
           <div className="flex text-[var(--color-gray-500)] flex-col w-full h-full justify-center items-center text-[16px] font-medium font-pretendard">

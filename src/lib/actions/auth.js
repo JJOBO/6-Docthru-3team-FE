@@ -3,6 +3,19 @@
 import { BASE_URL } from "@/constant/constant";
 import { cookies } from "next/headers";
 
+export async function getServerSideToken(cookieName) {
+  try {
+    const cookieStore = cookies();
+    const isToken = cookieStore.get(cookieName)?.value;
+    console.log(`[getServerSideToken] Fetched '${cookieName}':`, isToken ? "Found" : "Not Found");
+    const token = await cookieStore.get(cookieName)?.value;
+    return token;
+  } catch (error) {
+    console.error(`[getServerSideToken] Error getting '${cookieName}':`, error);
+    return undefined;
+  }
+}
+
 export async function loginAction(email, password) {
   try {
     const res = await fetch(`${BASE_URL}/auth/sign-in`, {

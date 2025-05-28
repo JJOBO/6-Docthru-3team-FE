@@ -26,11 +26,12 @@ const iconMap = {
   }
 };
 
-export default function BtnText({ theme, icon, onClick, className = "", children }) {
+export default function BtnText({ theme, icon, disabled, onClick, className = "", children }) {
   return (
     <button
       onClick={onClick}
-      className={`box-border flex items-center justify-center rounded-[10px] px-4 py-2 text-sm font-semibold sm:rounded-xl sm:text-base ${themes[theme]} ${className}`}
+      disabled={disabled}
+      className={`box-border w-full h-[48px] flex items-center justify-center gap-2 rounded-[10px] px-4 py-2 text-sm font-semibold sm:rounded-xl sm:text-base ${themes[theme]} ${className} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
     >
       {/* 포기 버튼 */}
       {icon && theme === "tonal" ? (
