@@ -45,7 +45,7 @@ function Pagination({ totalCount, currentPage, pageSize, onPageChange }) {
       endPage,
       pages,
       hasPrev: currentPage > 1,
-      hasNext: currentPage < totalPages,
+      hasNext: currentPage < totalPages
     };
   }, [currentPage, totalCount, itemsPerPage, pagesPerGroup]);
 
@@ -57,16 +57,9 @@ function Pagination({ totalCount, currentPage, pageSize, onPageChange }) {
     onPageChange(currentPage + 1);
   };
 
-  console.log("총 페이지 수", paginationData.totalPages);
-
   return (
     <div className="mb-12 flex justify-center gap-[6px]">
-      <button
-        type="button"
-        className="page-btn mr-[6px]"
-        onClick={handlePrev}
-        disabled={!paginationData.hasPrev}
-      >
+      <button type="button" className="page-btn mr-[6px]" onClick={handlePrev} disabled={!paginationData.hasPrev}>
         <Image src={leftArrow} alt="왼쪽 화살표" width={40} height={40} />
       </button>
       {paginationData?.pages.map((page) => (
@@ -74,21 +67,12 @@ function Pagination({ totalCount, currentPage, pageSize, onPageChange }) {
           key={page}
           type="button"
           onClick={() => onPageChange(page)}
-          className={`page-btn ${
-            page === currentPage
-              ? "text-brand-yellow bg-gray-800"
-              : "hover:bg-gray-200"
-          }`}
+          className={`page-btn ${page === currentPage ? "text-brand-yellow bg-gray-800" : "hover:bg-gray-200"}`}
         >
           {page}
         </button>
       ))}
-      <button
-        type="button"
-        className="page-btn ml-[6px]"
-        onClick={handleNext}
-        disabled={!paginationData.hasNext}
-      >
+      <button type="button" className="page-btn ml-[6px]" onClick={handleNext} disabled={!paginationData.hasNext}>
         <Image src={rightArrow} alt="오른쪽 화살표" width={40} height={40} />
       </button>
     </div>

@@ -6,8 +6,9 @@ import clockIcon from "@/assets/icon/ic_clock.svg";
 import usersIcon from "@/assets/icon/ic_person.svg";
 import { typeChipMap, categoryChipMap } from "../chip/chipMaps";
 
-import ChipCardStatus from "@/components/chip/chipComplete/ChipCardStatus";
+import ChipCardStatus from "@/components/chip/chipComplete/ChipCardStatus"; // 좌상단 chip
 import { useEffect, useState } from "react";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function ChallengeCard({
   title,
@@ -17,10 +18,12 @@ export default function ChallengeCard({
   participants,
   maxParticipant,
   variant = "default",
-  onDeclineClick,
-  isAdmin,
+  isAdmin
 }) {
   const [status, setStatus] = useState("");
+
+  //디버깅
+  console.log("isAdmin", isAdmin);
 
   useEffect(() => {
     const now = new Date();
@@ -39,17 +42,16 @@ export default function ChallengeCard({
     return new Intl.DateTimeFormat("ko-KR", {
       year: "numeric",
       month: "long",
-      day: "numeric",
+      day: "numeric"
     }).format(date);
   };
 
   return (
     <div
-      className={`flex w-full flex-col
+      className={`flex flex-col
   ${variant === "simple" ? "h-auto justify-start" : "h-[227px] justify-between sm:h-[262px] md:h-[225px]"}
   ${variant === "simple" ? "" : "rounded-[12px] border-2 border-[var(--color-gray-800)]"}
-  bg-white p-4 
-  max-w-[996px] sm:max-w-[343px] md:max-w-[696px]`}
+  bg-white p-4`}
     >
       <div className="flex items-start justify-between">
         {status ? (
@@ -58,17 +60,11 @@ export default function ChallengeCard({
           <div className="text-xl font-semibold text-gray-800">{title}</div>
         )}
 
-        <div className="flex items-center gap-2">
-          {isAdmin && (
-            <button onClick={onDeclineClick} className="px-3 py-1 text-sm text-red-600 border border-red-600 rounded-md hover:bg-red-50">
-              삭제
-            </button>
-          )}
-          {/* 3점메뉴(드롭다운) 버튼 */}
+        {isAdmin ? (
           <button>
             <Image src={dropdownIcon} alt="드롭다운" width={24} height={24} />
           </button>
-        </div>
+        ) : null}
       </div>
 
       {status && <div className="mt-2 text-xl font-semibold text-gray-800">{title}</div>}

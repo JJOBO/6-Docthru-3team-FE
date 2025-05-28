@@ -1,57 +1,51 @@
 "use client";
 
 import SearchInput from "@/components/input/SearchInput";
-import React, { useEffect, useState } from "react";
 import AppliedChallenges from "./_components/AppliedChallenges";
-import { useRouter } from "next/navigation";
-import { columnSetting, ITEM_COUNT } from "@/constant/constant";
-import { useAuth } from "@/providers/AuthProvider";
-import { appliedChallenges } from "@/lib/api/myChallenges";
 import Sort from "@/components/sort/Sort";
+import React, { useEffect, useState } from "react";
+import { ITEM_COUNT } from "@/constant/constant";
+import { useAuth } from "@/providers/AuthProvider";
+import { userService } from "@/lib/service/userService";
+import ApplyDropdown from "@/components/dropDown/list/ApplyDropdown";
 
-export default function AppliedChallengesPage() {
-  const router = useRouter();
-  const [totalCount, setTotalCount] = useState(1);
+export default function ApplicationsPage() {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [applications, setApplications] = useState();
+  const [totalCount, setTotalCount] = useState(null);
   const [page, setPage] = useState(1);
-  const pageSize = ITEM_COUNT.APPLICATION;
-  const [result, setResult] = useState([]);
   const { user } = useAuth();
+  const pageSize = ITEM_COUNT.APPLICATION;
 
-  async function appliedChallengesData() {
+  async function fetchApplicationList() {
     try {
-      const result = await appliedChallenges({ page, pageSize });
-      setResult([...result?.data]);
-      setTotalCount(result.totalCount || 0);
-      console.log("✅ fetched:", result);
+      const result = await userService.getApplications(page, pageSize);
+      setApplications(result?.data);
+      setTotalCount(result.totalCount);
     } catch (error) {
       console.error(error, "목록 불러오기 실패");
     }
   }
 
-  //신청한 챌린지 목록 불러오기
-
   useEffect(() => {
     if (user) {
-      appliedChallengesData();
+      fetchApplicationList();
     }
-    console.log(page, result);
   }, [page, user]);
 
   return (
     <>
       <div className="flex justify-between mb-4 gap-2">
         <div className="flex-7 sm:flex-8">
-          {" "}
           <SearchInput />
         </div>
-        <div className="flex-3 sm:flex-2">
-          <Sort />
+        <div className="flex-3 sm:flex-2 relative">
+          <Sort isAdminStatus={true} onClick={() => setIsDropdownOpen((prev) => !prev)} />
+          <div className="absolute right-0 mt-2">{isDropdownOpen && <ApplyDropdown />}</div>
         </div>
       </div>
       <AppliedChallenges
-        columnSetting={columnSetting}
-        result={result}
-        onClick={(id) => router.push(`/challenges/${id}`)}
+        resultData={applications}
         totalCount={totalCount}
         page={page}
         pageSize={pageSize}

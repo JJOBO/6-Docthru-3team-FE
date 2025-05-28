@@ -1,12 +1,10 @@
 import React from "react";
 import { formatDate } from "@/lib/utils/formatDate";
+import { columnSetting } from "@/constant/constant";
 
-export default function ListRow({ data, columnSetting, onClick }) {
+export default function ListRow({ data }) {
   return (
-    <div
-      onClick={onClick}
-      className="w-full flex min-w-[670px] min-h-12 bg-white border-b border-gray-300 hover:bg-[#f5f5f5] hover:cursor-pointer"
-    >
+    <button className="w-full flex min-w-[670px] min-h-12 bg-white border-b border-gray-300 hover:bg-[#f5f5f5]">
       {columnSetting.map(({ key, className, flex, render }) => (
         <div
           key={key}
@@ -16,6 +14,6 @@ export default function ListRow({ data, columnSetting, onClick }) {
           {render ? render(data) : key === "createdAt" || key === "updatedAt" ? formatDate(data[key]) : data[key]}
         </div>
       ))}
-    </div>
+    </button>
   );
 }

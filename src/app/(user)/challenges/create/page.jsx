@@ -66,7 +66,7 @@ export default function page() {
   }
 
   return (
-    <div className="font-pretendard px-[16px] pt-[16px] pb-[87px] text-[18px] text-[var(--color-gray-900)]">
+    <div className="font-pretendard px-[16px] [@media(min-width:376px)]:px-[77px] [@media(min-width:1200px)]:px-[665px] pt-[16px] pb-[87px] text-[18px] text-[var(--color-gray-900)]">
       <div className="font-bold">신규 챌린지 신청</div>
 
       <div className="flex flex-col gap-[24px] pt-[16px] pb-[24px] text-[14px]">

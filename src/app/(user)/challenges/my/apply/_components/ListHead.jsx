@@ -1,6 +1,7 @@
+import { columnSetting } from "@/constant/constant";
 import React from "react";
 
-export default function ListHead({ columnSetting }) {
+export default function ListHead() {
   return (
     <div className="w-full min-w-[670px] h-9 flex mb-2">
       {columnSetting.map(({ label, flex }, idx) => {

@@ -9,6 +9,16 @@ export const ITEM_COUNT = {
   CHALLENGE_SM: 4
 };
 
+export const APPLY_DROPDOWN_OPTIONS = [
+  "승인 대기",
+  "신청 승인",
+  "신청 거절",
+  "신청 시간 빠른순",
+  "신청 시간 느린순",
+  "마감 기한 빠른순",
+  "마감 기한 느린순"
+];
+
 /* 
 신청한 챌린지
 
