@@ -1,4 +1,4 @@
-import { getUserAction } from "../actions/user";
+import { getUserAction } from "@/lib/actions/user";
 
 export const userService = {
   // 사용자 정보 조회

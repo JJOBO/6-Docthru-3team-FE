@@ -5,7 +5,7 @@ export default {
   tabWidth: 2,
   useTabs: false,
   semi: true,
-  singleQuote: true,
+  singleQuote: false,
   bracketSpacing: true,
-  trailingComma: "none",
+  trailingComma: "none"
 };
