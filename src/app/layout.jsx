@@ -36,7 +36,7 @@ export default async function RootLayout({ children }) {
       <link rel="icon" href="/favicon.svg" />
       <body className={`${pretendard.variable} font-pretendard flex min-h-screen flex-col antialiased`}>
         <Providers>
-          <main className="flex-grow pb-16">{children}</main>
+          <main className="flex-grow">{children}</main>
         </Providers>
 
         <DevNavigation />

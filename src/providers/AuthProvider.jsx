@@ -92,7 +92,7 @@ export default function AuthProvider({ children }) {
     } else {
       setIsLoading(false);
     }
-  }, []);
+  }, [pathname]);
 
   return <AuthContext.Provider value={{ user, login, logout, register, isLoading }}>{children}</AuthContext.Provider>;
 }

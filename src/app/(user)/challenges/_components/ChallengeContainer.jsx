@@ -1,16 +1,16 @@
-import React from 'react';
-import Image from 'next/image';
-import clock from '@/assets/icon/ic_clock.svg';
-import callengers from '@/assets/icon/ic_person.svg';
+import React from "react";
+import Image from "next/image";
+import clock from "@/assets/icon/ic_clock.svg";
+import callengers from "@/assets/icon/ic_person.svg";
 
 //type은 "slim", "" 사용 가능
-export default function ChallengeContainerd({ height, type, deadline, currentCount, maxCount, originalUrl }) {
+export default function ChallengeContainer({ height, type, deadline, currentCount, maxCount, originalUrl }) {
   return (
     <div
       className={`${height} flex items-center rounded-2xl bg-white border border-gray-100 font-[var(--font-pretendard)]`}
     >
       <div
-        className={`flex w-full flex-col items-center gap-[16px] px-[16px] ${type === 'slim' ? 'py-[12px]' : 'py-[24px]'}`}
+        className={`flex w-full flex-col items-center gap-[16px] px-[16px] ${type === "slim" ? "py-[12px]" : "py-[24px]"}`}
       >
         <div className="flex h-[24px] flex-row items-center justify-center gap-[4px] text-[13px]">
           <Image src={clock} alt="시계모양 이모지" />
@@ -19,7 +19,7 @@ export default function ChallengeContainerd({ height, type, deadline, currentCou
           {currentCount}/{maxCount}
         </div>
 
-        <div className={`flex ${type === 'slim' ? 'flex-row' : 'h-[88px] flex-col'} w-full gap-[8px]`}>
+        <div className={`flex ${type === "slim" ? "flex-row" : "h-[88px] flex-col"} w-full gap-[8px]`}>
           <a
             href={originalUrl}
             target="_blank"

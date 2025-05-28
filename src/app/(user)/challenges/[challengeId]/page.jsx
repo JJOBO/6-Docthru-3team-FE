@@ -1,25 +1,24 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { useParams } from 'next/navigation';
-import { getChallengeDetail, getChallengeRanking } from '@/lib/api/challengeDetail';
-import dayjs from 'dayjs';
-import ChallengeCard from '@/components/card/Card';
-import ChallengeContainer from '@/app/(user)/challenges/_components/challengeCard/ChallengeContainer';
-import RankingListItem from '@/components/list/RankingListItem';
-
-import userIcon from '@/assets/img/profile_member.svg';
-import arrowRight from '@/assets/icon/ic_arrow_right.svg';
-import arrowLeft from '@/assets/icon/ic_arrow_left.svg';
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { getChallengeDetail, getChallengeRanking } from "@/lib/api/challengeDetail";
+import dayjs from "dayjs";
+import ChallengeCard from "@/components/card/Card";
+import ChallengeContainer from "../_components/ChallengeContainer";
+import RankingListItem from "@/components/list/RankingListItem";
+import userIcon from "@/assets/img/profile_member.svg";
+import arrowRight from "@/assets/icon/ic_arrow_right.svg";
+import arrowLeft from "@/assets/icon/ic_arrow_left.svg";
 
 function useIsTablet() {
   const [isTablet, setIsTablet] = useState(false);
   useEffect(() => {
     const checkWidth = () => setIsTablet(window.innerWidth >= 768);
     checkWidth();
-    window.addEventListener('resize', checkWidth);
-    return () => window.removeEventListener('resize', checkWidth);
+    window.addEventListener("resize", checkWidth);
+    return () => window.removeEventListener("resize", checkWidth);
   }, []);
   return isTablet;
 }
@@ -63,7 +62,7 @@ export default function ChallengeDetailPage() {
 
     getChallengeRanking(challengeId)
       .then(setRankingData)
-      .catch((err) => console.error('랭킹 정보 불러오기 실패:', err));
+      .catch((err) => console.error("랭킹 정보 불러오기 실패:", err));
   }, [challengeId]);
 
   if (loading) return <main className="p-10 text-center">불러오는 중...</main>;
@@ -82,15 +81,15 @@ export default function ChallengeDetailPage() {
 
           <section className="flex items-center gap-2 px-4">
             <Image src={userIcon} alt="작성자 프로필" width={32} height={32} className="rounded-full" />
-            <span className="text-sm font-medium text-gray-700">{challenge.user?.nickname || '작성자 없음'}</span>
+            <span className="text-sm font-medium text-gray-700">{challenge.user?.nickname || "작성자 없음"}</span>
           </section>
         </div>
 
         <div className="w-full md:w-1/3">
           <ChallengeContainer
             height="h-auto"
-            type={isTablet ? '' : 'slim'}
-            deadline={dayjs(challenge.deadline).format('YYYY년 M월 D일')}
+            type={isTablet ? "" : "slim"}
+            deadline={dayjs(challenge.deadline).format("YYYY년 M월 D일")}
             currentCount={challenge.participants?.length || 0}
             maxCount={challenge.maxParticipant}
             originalUrl={challenge.originalUrl}
@@ -113,7 +112,7 @@ export default function ChallengeDetailPage() {
                   alt="이전"
                   width={20}
                   height={20}
-                  className={currentPage === 1 ? 'opacity-30' : ''}
+                  className={currentPage === 1 ? "opacity-30" : ""}
                 />
               </button>
               <button
@@ -125,7 +124,7 @@ export default function ChallengeDetailPage() {
                   alt="다음"
                   width={20}
                   height={20}
-                  className={currentPage === totalPages ? 'opacity-30' : ''}
+                  className={currentPage === totalPages ? "opacity-30" : ""}
                 />
               </button>
             </div>
@@ -140,7 +139,7 @@ export default function ChallengeDetailPage() {
                 item={{
                   rank: startIndex + index + 1,
                   userName: item.author.authorNickname,
-                  userRole: '전문가',
+                  userRole: "전문가",
                   likes: item.likeCount,
                   isLiked: item.isLiked,
                   workId: item.workId

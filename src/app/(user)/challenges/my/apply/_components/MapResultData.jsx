@@ -1,7 +1,5 @@
-'use client';
-
-import React, { useState } from 'react';
-import ListRow from './ListRow';
+import React from "react";
+import ListRow from "./ListRow";
 
 export default function MapResultData({ resultData, columnSetting, onClick }) {
   return (

@@ -25,13 +25,7 @@ import IconBulletList from "@/assets/editor/ic_list_bullet.svg";
 import IconTextColor from "@/assets/editor/ic_textColor.svg";
 import ClipLoader from "react-spinners/ClipLoader";
 
-export default function Editor({
-  challengeTitle,
-  content,
-  handleContent,
-  onDraft,
-  isDrafting,
-}) {
+export default function Editor({ challengeTitle, content, handleContent, onDraft, isDrafting }) {
   const [showColorPicker, setShowColorPicker] = useState(false);
 
   const editor = useEditor({
@@ -39,36 +33,36 @@ export default function Editor({
       StarterKit.configure({
         bulletList: false,
         orderedList: false,
-        listItem: false, // ✅ 중복 방지를 위해 명시적으로 끄기
+        listItem: false // ✅ 중복 방지를 위해 명시적으로 끄기
       }),
       TextStyle,
       Underline,
       TextAlign.configure({
-        types: ["heading", "paragraph", "bulletList", "orderedList"],
+        types: ["heading", "paragraph", "bulletList", "orderedList"]
       }),
       Color.configure({ types: [TextStyle.name] }),
       BulletList,
       OrderedList,
       ListItem.configure({
         HTMLAttributes: {
-          class: "list-item",
-        },
+          class: "list-item"
+        }
       }),
       Placeholder.configure({
         placeholder: "번역 내용을 적어주세요",
-        emptyEditorClass: "is-editor-empty",
-      }),
+        emptyEditorClass: "is-editor-empty"
+      })
     ],
     content: content || "",
     editorProps: {
       attributes: {
-        class: "prose prose-lg focus:outline-none w-full max-w-full",
-      },
+        class: "prose prose-lg focus:outline-none w-full max-w-full"
+      }
     },
     onUpdate: ({ editor }) => {
       handleContent(editor.getHTML());
     },
-    immediatelyRender: false, // ✅ SSR 환경 대응을 위한 필수 옵션
+    immediatelyRender: false // ✅ SSR 환경 대응을 위한 필수 옵션
   });
 
   // content props가 변경될 때 에디터 내용 업데이트
@@ -86,9 +80,7 @@ export default function Editor({
 
     const handleSaveShortcut = (e) => {
       const isMac = navigator.userAgent.includes("Mac");
-      const isSaveKey =
-        (isMac && e.metaKey && e.key === "s") ||
-        (!isMac && e.ctrlKey && e.key === "s");
+      const isSaveKey = (isMac && e.metaKey && e.key === "s") || (!isMac && e.ctrlKey && e.key === "s");
 
       if (isSaveKey) {
         e.preventDefault();
@@ -112,7 +104,7 @@ export default function Editor({
     "#22C55E", // Green
     "#3B82F6", // Blue
     "#6366F1", // Indigo
-    "#A855F7", // Purple
+    "#A855F7" // Purple
   ];
 
   // TODO: 추후 로딩으로 수정
@@ -120,8 +112,8 @@ export default function Editor({
 
   return (
     <div className="flex flex-col rounded-lg border-t border-gray-200">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1 py-4">
+      <div className="flex flex-col items-start justify-between">
+        <div className="flex items-center gap-1 pt-4">
           <button
             onClick={() => editor.chain().focus().toggleBold().run()}
             className={`p-2 ${editor.isActive("bold") ? "rounded bg-gray-200" : ""}`}
@@ -165,37 +157,19 @@ export default function Editor({
             onClick={() => editor.chain().focus().toggleBulletList().run()}
             className={`p-2 ${editor.isActive("bulletList") ? "rounded bg-gray-200" : ""}`}
           >
-            <Image
-              src={IconBulletList}
-              alt="Bullet List"
-              width={14}
-              height={14}
-            />
+            <Image src={IconBulletList} alt="Bullet List" width={14} height={14} />
           </button>
 
           <button
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
             className={`p-2 ${editor.isActive("orderedList") ? "rounded bg-gray-200" : ""}`}
           >
-            <Image
-              src={IconOrderedList}
-              alt="Ordered List"
-              width={14}
-              height={14}
-            />
+            <Image src={IconOrderedList} alt="Ordered List" width={14} height={14} />
           </button>
 
           <div className="relative">
-            <button
-              onClick={() => setShowColorPicker(!showColorPicker)}
-              className="p-2 pl-5"
-            >
-              <Image
-                src={IconTextColor}
-                alt="Text Color"
-                width={14}
-                height={14}
-              />
+            <button onClick={() => setShowColorPicker(!showColorPicker)} className="p-2 pl-5">
+              <Image src={IconTextColor} alt="Text Color" width={14} height={14} />
             </button>
             {showColorPicker && (
               <div className="absolute top-full left-0 z-10 mt-1 flex gap-1 rounded-lg border border-gray-200 bg-white p-2 shadow-lg">
@@ -214,11 +188,11 @@ export default function Editor({
             )}
           </div>
         </div>
-
-        <div className="flex items-center gap-1 py-4">
+        {/* 임시 저장중 표시 로딩 */}
+        <div className="flex h-6 w-full gap-1 pl-1 pt-1 pb-2">
           {isDrafting && (
             <div className="flex items-center gap-1">
-              <span className="text-sm text-gray-500">저장중</span>
+              <span className="text-sm text-gray-500">임시 저장중</span>
               <ClipLoader color="#3B82F6" size={10} />
             </div>
           )}
@@ -227,7 +201,7 @@ export default function Editor({
 
       <EditorContent
         editor={editor}
-        className="min-h-[200px] text-lg [&_.is-editor-empty]:before:pointer-events-none [&_.is-editor-empty]:before:float-left [&_.is-editor-empty]:before:h-0 [&_.is-editor-empty]:before:text-lg [&_.is-editor-empty]:before:text-gray-400 [&_.is-editor-empty]:before:content-[attr(data-placeholder)]"
+        className="h-[calc(100vh-250px)] min-h-[300px] pb-5 sm:pb-0 overflow-y-auto text-lg [&_.is-editor-empty]:before:pointer-events-none [&_.is-editor-empty]:before:float-left [&_.is-editor-empty]:before:h-0 [&_.is-editor-empty]:before:text-lg [&_.is-editor-empty]:before:text-gray-400 [&_.is-editor-empty]:before:content-[attr(data-placeholder)]"
       />
     </div>
   );

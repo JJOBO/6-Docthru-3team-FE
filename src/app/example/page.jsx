@@ -4,10 +4,10 @@ import { useState } from "react";
 import BtnText, { BtnRoundedWithIcon } from "@/components/btn/text/BtnText";
 import Container from "@/components/container/PageContainer";
 import DeclineModal from "@/components/modal/DeclineModal";
-import DeleteModal from "@/components/modal/DeleteModal";
+import DeleteModal from "@/components/modal/ConfirmActionModal";
 import FilterModal from "@/components/modal/FilterModal";
 import NotificationModal from "@/components/modal/NotificationModal";
-import SignupModal from "@/components/modal/AuthModal";
+// import SignupModal from "@/components/modal/SignupModal";
 import TemporaryStorage from "@/components/modal/DraftModal";
 import Sort from "@/components/sort/Sort";
 import RankingListItem from "@/components/list/RankingListItem";
@@ -16,15 +16,16 @@ import IconPasswordVisible from "@/components/btn/icon/BtnIcon";
 import BtnCheckbox from "@/components/btn/form/BtnCheckbox";
 import BtnRadio from "@/components/btn/form/BtnRadio";
 import Pagination from "@/components/pagination/Pagination";
-import ChallengeContainerd from "../(user)/challenges/_components/challengeCard/ChallengeContainer";
+import ChallengeContainer from "../(user)/challenges/_components/ChallengeContainer";
 import SearchInput from "@/components/input/SearchInput";
 import Profile from "@/components/dropDown/Profile";
 import ApplyChallenge from "../(user)/challenges/_components/ApplyChallenge";
-import Input from "../(user)/challenges/create/component/Input";
+
+import Input from "../(user)/challenges/create/_components/Input";
 
 const themesTitle = "mb-1 font-[600]";
 const MODAL_COMPONENTS = {
-  signup: SignupModal,
+  // signup: SignupModal,
   decline: DeclineModal,
   delete: DeleteModal,
   notification: NotificationModal,
@@ -281,8 +282,8 @@ const page = () => {
       {/* Challenge container 컴포넌트*/}
       <div className="m-10 flex flex-col gap-8 bg-white p-4">
         <h2 className="text-3xl font-bold">challenge container</h2>
-        <ChallengeContainerd height={"h-[176px]"} type={""} />
-        <ChallengeContainerd height={"h-[104px]"} type={"slim"} />
+        <ChallengeContainer height={"h-[176px]"} type={""} />
+        <ChallengeContainer height={"h-[104px]"} type={"slim"} />
       </div>
 
       {/* SearchInput 컴포넌트

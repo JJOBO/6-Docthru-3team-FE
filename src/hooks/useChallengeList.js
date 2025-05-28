@@ -1,4 +1,4 @@
-import { getChallenges } from "@/lib/api/challenges-first/searchChallenge";
+import { getChallenges } from "@/lib/api/challenge-api/searchChallenge";
 import { useState, useEffect, useCallback } from "react";
 
 const useChallenges = () => {

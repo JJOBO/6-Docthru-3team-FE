@@ -53,7 +53,7 @@ export default function SignInPage() {
               setPassword(e.target.value);
             }}
           />
-          <SubmitButton type="로그인" hasInputValue="true" />
+          <SubmitButton type="로그인" hasInputValue={true} />
         </form>
         <GoogleLoginButton />
         <div className="text-[#262626] mt-6 space-x-2">

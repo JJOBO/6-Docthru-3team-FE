@@ -1,28 +1,29 @@
-// const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
-const BASE_URL = 'http://localhost:8080';
+// 현재 실행 모드에 따라 baseURL 변경
+const BASE_URL = process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_API_URL : "http://localhost:8080";
 
 // 공통 fetch 설정
 const fetchConfig = {
-  credentials: 'include', // 항상 쿠키 포함
+  credentials: "include",
   headers: {
-    'Content-Type': 'application/json' // 이 부분이 필요합니다
-  }
+    "Content-Type": "application/json",
+    Origin: process.env.NEXT_PUBLIC_CLIENT_URL // 프론트엔드 도메인
+  },
+  mode: "cors"
 };
-
 const workService = {
   // 챌린지 작업물 목록 조회 (페이지네이션)
   getWorkList: async (challengeId, page = 1, size = 5) => {
     const response = await fetch(`${BASE_URL}/challenges/${challengeId}/works?page=${page}&size=${size}`, {
       ...fetchConfig
     });
-    if (!response.ok) throw new Error('Failed to fetch work list');
+    if (!response.ok) throw new Error("Failed to fetch work list");
     return response.json();
   },
 
   // 작업물 상세 조회
-  getWorkDetail: async (challengeId = 15, workId = 65) => {
+  getWorkDetail: async (challengeId = 15, workId = 67) => {
     const response = await fetch(`${BASE_URL}/challenges/${challengeId}/works/${workId}`, { ...fetchConfig });
-    if (!response.ok) throw new Error('Failed to fetch work detail');
+    if (!response.ok) throw new Error("Failed to fetch work detail");
     return response.json();
   },
 
@@ -30,29 +31,29 @@ const workService = {
   createWork: async (challengeId) => {
     const response = await fetch(`${BASE_URL}/challenges/${challengeId}/works`, {
       ...fetchConfig,
-      method: 'POST'
+      method: "POST"
     });
-    if (!response.ok) throw new Error('Failed to create work');
+    if (!response.ok) throw new Error("Failed to create work");
     return response.json();
   },
 
   // 작업물 제출 및 수정
   updateWork: async (workId, content) => {
-    console.log('updateWork payload:', content);
+    console.log("updateWork payload:", content);
     const response = await fetch(`${BASE_URL}/works/${workId}`, {
       ...fetchConfig,
-      method: 'PATCH',
+      method: "PATCH",
       body: JSON.stringify({ content })
     });
-    if (!response.ok) throw new Error('Failed to update work');
+    if (!response.ok) throw new Error("Failed to update work");
     return response.json();
   },
 
   // 작업물 삭제(포기)
   deleteWork: async (workId) => {
     const response = await fetch(`${BASE_URL}/works/${workId}`, {
-      method: 'DELETE',
-      credentials: 'include'
+      ...fetchConfig,
+      method: "DELETE"
     });
 
     return { status: response.status };
@@ -62,9 +63,9 @@ const workService = {
   createWorkLike: async (workId) => {
     const response = await fetch(`${BASE_URL}/works/${workId}/like`, {
       ...fetchConfig,
-      method: 'POST'
+      method: "POST"
     });
-    if (!response.ok) throw new Error('Failed to create work like');
+    if (!response.ok) throw new Error("Failed to create work like");
     return response.json();
   },
 
@@ -72,9 +73,9 @@ const workService = {
   deleteWorkLike: async (workId) => {
     const response = await fetch(`${BASE_URL}/works/${workId}/like`, {
       ...fetchConfig,
-      method: 'DELETE'
+      method: "DELETE"
     });
-    if (!response.ok) throw new Error('Failed to delete work like');
+    if (!response.ok) throw new Error("Failed to delete work like");
     return response.json();
   }
 };

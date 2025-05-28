@@ -1,4 +1,4 @@
-import AdminStatusChip from '../app/(user)/challenges/_components/myChallenges/appliedChallenges/AdminStatuschip.jsx';
+import AdminStatusChip from "../app/(user)/challenges/my/apply/_components/AdminStatuschip.jsx";
 
 export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 export const API_URL = process.env.API_URL;
@@ -20,23 +20,23 @@ render : 해당 셀에 상태에 따라 다른 값을 노출해야 할 경우
 */
 
 export const columnSetting = [
-  { key: 'id', label: 'No.', flex: 0.6, className: 'pl-4' },
-  { key: 'docType', label: '분야', flex: 1.2 },
-  { key: 'category', label: '카테고리', flex: 1 },
-  { key: 'title', label: '챌린지 제목', flex: 5, className: 'text-gray-700 font-medium' },
-  { key: 'maxParticipant', label: '인원', flex: 1 },
-  { key: 'createdAt', label: '신청일', flex: 1 },
-  { key: 'updatedAt', label: '마감기한', flex: 1 },
+  { key: "id", label: "No.", flex: 0.6, className: "pl-4" },
+  { key: "docType", label: "분야", flex: 1.2 },
+  { key: "category", label: "카테고리", flex: 1 },
+  { key: "title", label: "챌린지 제목", flex: 5, className: "text-gray-700 font-medium" },
+  { key: "maxParticipant", label: "인원", flex: 1 },
+  { key: "createdAt", label: "신청일", flex: 1 },
+  { key: "updatedAt", label: "마감기한", flex: 1 },
   {
-    key: 'adminStatus',
-    label: '상태',
+    key: "adminStatus",
+    label: "상태",
     flex: 1.2,
     render: (data) =>
       !!data.application?.adminStatus ? (
         // adminStatus 필드를 사용할 경우 아래 컴포넌트 사용해 값마다 다른 스타일링을 보여줌
         <AdminStatusChip status={data.application?.adminStatus} />
       ) : (
-        'null'
+        "null"
       )
   }
 ];

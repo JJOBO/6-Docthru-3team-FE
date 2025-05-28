@@ -1,11 +1,11 @@
 "use client";
 
-import AppliedChallenges from "@/app/(user)/challenges/_components/myChallenges/appliedChallenges/AppliedChallenges";
+import AppliedChallenges from "@/app/(user)/challenges/my/apply/_components/AppliedChallenges";
 import DropdownListLeftSmall from "@/components/dropDown/list/DropdownListLeftSmall";
 import SearchInput from "@/components/input/SearchInput";
 import Sort from "@/components/sort/Sort";
 import { columnSetting, ITEM_COUNT } from "@/constant/constant";
-import { getChallenges } from "@/lib/api/challenges-first/searchChallenge";
+import { getChallenges } from "@/lib/api/challenge-api/searchChallenge";
 import { useEffect, useState } from "react";
 
 function AdminManagementPage() {

@@ -16,7 +16,7 @@ function Profile() {
   const grade = isAdmin ? "어드민" : isExpert ? "전문가" : "일반";
 
   const handleClickMychallenge = () => {
-    router.push("/my/challenges");
+    router.push("/challenges/mychallenges");
   };
 
   return (

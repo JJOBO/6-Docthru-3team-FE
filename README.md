@@ -28,7 +28,7 @@
 - **UI 컴포넌트**:
   - react-icons v5.5.0 (아이콘)
   - react-textarea-autosize v8.5.9 (자동 크기 조절 텍스트 영역)
-  - react-datepicker (달력을 통해 날짜 선택)
+  - react-datepicker v.8.4.0 (달력을 통해 날짜 선택)
 
 ### 개발 도구
 

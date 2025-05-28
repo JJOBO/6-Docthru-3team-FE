@@ -11,7 +11,7 @@ export function middleware(request) {
   const isAuthRoute = pathname.startsWith("/signIn") || pathname.startsWith("/signUp");
 
   // 인증된 사용자만 접근 가능한 경로
-  const isProtectedRoute = pathname.includes("/create") || pathname.includes("/edit");
+  const isProtectedRoute = pathname.startsWith("/challenges") || pathname.startsWith("/admin");
 
   // 인증된 사용자가 로그인/회원가입 페이지에 접근하면 → 챌린지 목록 페이지로 리디렉션
   if (isAuthRoute && isAuthenticated) {

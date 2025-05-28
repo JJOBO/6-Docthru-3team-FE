@@ -1,15 +1,15 @@
-'use client';
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import out from '@/assets/icon/ic_out.svg';
-import DeleteModal from './DeleteModal';
+"use client";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import out from "@/assets/icon/ic_out.svg";
+import DeleteModal from "./ConfirmActionModal";
 
 // 날짜 포맷 함수 ex) 2024. 12. 24.
 function formatDate(dateString) {
-  if (!dateString) return '';
+  if (!dateString) return "";
   const d = new Date(dateString);
-  if (isNaN(d)) return '';
-  return `${d.getFullYear()}. ${String(d.getMonth() + 1).padStart(2, '0')}. ${String(d.getDate()).padStart(2, '0')}.`;
+  if (isNaN(d)) return "";
+  return `${d.getFullYear()}. ${String(d.getMonth() + 1).padStart(2, "0")}. ${String(d.getDate()).padStart(2, "0")}.`;
 }
 
 export default function DraftModal({ onClose, isLoggedIn = true, onLoadItem }) {
@@ -18,8 +18,8 @@ export default function DraftModal({ onClose, isLoggedIn = true, onLoadItem }) {
 
   // 로컬스토리지에서 데이터 불러오기
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const raw = window.localStorage.getItem('draft');
+    if (typeof window !== "undefined") {
+      const raw = window.localStorage.getItem("draft");
       if (raw) {
         try {
           const parsed = JSON.parse(raw);
@@ -39,10 +39,10 @@ export default function DraftModal({ onClose, isLoggedIn = true, onLoadItem }) {
     onLoadItem?.({ content: selectedItem.content });
     const newItems = items.filter((_, idx) => idx !== selectedIdx);
     setItems(newItems);
-    window.localStorage.setItem('draft', JSON.stringify(newItems));
+    window.localStorage.setItem("draft", JSON.stringify(newItems));
     setSelectedIdx(null);
     if (newItems.length <= 0) {
-      window.localStorage.removeItem('draft');
+      window.localStorage.removeItem("draft");
     }
     onClose();
   };
@@ -57,14 +57,14 @@ export default function DraftModal({ onClose, isLoggedIn = true, onLoadItem }) {
           </button>
         </div>
         <div className="mb-1 text-xs font-normal text-gray-800">총 {items.length}개</div>
-        <ul>
+        <ul className="max-h-[300px] overflow-y-auto">
           {items.map((item, idx) => (
             <li
               key={item.id || idx}
-              className={`cursor-pointer py-3 ${idx !== items.length - 1 ? 'border-b border-gray-200' : ''}`}
+              className={`cursor-pointer py-3 ${idx !== items.length - 1 ? "border-b border-gray-200" : ""}`}
               onClick={() => setSelectedIdx(idx)}
             >
-              <div className="mb-1 text-sm font-medium text-gray-800">{item.title || '제목 없음'}</div>
+              <div className="mb-1 text-sm font-medium text-gray-800">{item.title || "제목 없음"}</div>
               <div className="text-xs font-normal text-gray-400">{formatDate(item.createdAt)}</div>
             </li>
           ))}

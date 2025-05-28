@@ -57,6 +57,8 @@ function Pagination({ totalCount, currentPage, pageSize, onPageChange }) {
     onPageChange(currentPage + 1);
   };
 
+  console.log("총 페이지 수", paginationData.totalPages);
+
   return (
     <div className="mb-12 flex justify-center gap-[6px]">
       <button

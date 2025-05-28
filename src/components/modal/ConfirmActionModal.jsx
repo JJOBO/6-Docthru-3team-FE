@@ -4,14 +4,11 @@ import React from "react";
 import check from "@/assets/icon/check.svg";
 import { useRouter } from "next/navigation";
 
-export default function DeleteModal({ text, onClose, onConfirm, isLoggedIn }) {
+export default function ConfirmActionModal({ text, onClose, onConfirm, isLoggedIn }) {
   const router = useRouter();
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
       <div
         className="min-h-[187px] w-full max-w-[327px] rounded-xl border-2 border-gray-800 bg-white px-[14.5px] shadow-lg"
         onClick={(e) => e.stopPropagation()}
